@@ -1,0 +1,74 @@
+  .seat-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px; /* space between rows */
+  }
+
+  .seat-row {
+      display: flex;
+      justify-content: center;
+      gap: 8px; /* space between seats */
+  }
+
+
+  .seat-btn {
+      width: 45px;
+      height: 45px;
+      border-radius: 6px;
+      font-weight: bold;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+  }
+
+
+  .seat-btn.available {
+      background-color: #ffffff;
+      border: 2px solid #28a745;
+      color: #28a745;
+  }
+
+  .seat-btn.available:hover {
+      background-color: #28a745;
+      color: #ffffff;
+      transform: scale(1.05);
+  }
+
+
+  .seat-btn.selected {
+      background-color: #28a745;
+      color: #ffffff;
+      border: 2px solid #28a745;
+  }
+
+  .seat-btn.booked {
+      background-color: #d6d6d6;
+      color: #8a8a8a;
+      border: 2px solid #bcbcbc;
+      cursor: not-allowed;
+  }
+
+  .legend span {
+      display: inline-block;
+      width: 25px;
+      height: 25px;
+      margin-right: 5px;
+      border-radius: 5px;
+      vertical-align: middle;
+  }
+
+  .legend .available {
+      background-color: #ffffff;
+      border: 2px solid #28a745;
+  }
+
+  .legend .selected {
+      background-color: #28a745;
+      border: 2px solid #28a745;
+  }
+
+  .legend .booked {
+      background-color: #d6d6d6;
+      border: 2px solid #bcbcbc;
+  }

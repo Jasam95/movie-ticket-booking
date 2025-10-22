@@ -1,0 +1,23 @@
+.input-group-text {
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+}
+
+.form-control {
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    box-shadow: none !important;
+}
+
+.form-control:focus {
+    border-color: #0d6efd;
+}
+
+.bi-search {
+    font-size: 1.1rem;
+}
+
+#search-icon:hover {
+    color: #0d6efd;
+}
+

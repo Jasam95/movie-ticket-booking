@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Payment Confirmation</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .card {
+            width: 100%;
+            max-width: 600px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border-radius: 12px;
+        }
+        .confirm-btn {
+                background-color: #007bff;
+                color: white;
+                padding: 10px 25px;
+                border: none;
+                border-radius: 8px;
+                font-weight: 600;
+                transition: background-color 0.2s ease-in-out;
+            }
+            .confirm-btn:hover {
+                background-color: #0056b3;
+            }
+    </style>
+</head>
+<body>
+
+<div class="container mt-5">
+    <div class="card mx-auto p-4" style="max-width: 600px;">
+        <h3 class="text-center text-primary fw-bold mb-3">🎟 Payment Confirmation</h3>
+
+            <div th:if="${errorMessage}" class="alert alert-danger text-center fw-bold">
+                <span th:text="${errorMessage}"></span>
+            </div>
+
+        <div class="mb-3">
+            <p><strong>🎬 Movie:</strong> <span th:text="${booking.show.movie.title}"></span></p>
+            <p><strong>🏛 Theater:</strong> <span th:text="${booking.show.screen.theater.name}"></span></p>
+            <p><strong>📍 Location:</strong> <span th:text="${booking.show.screen.theater.location}"></span></p>
+            <p><strong>🕒 Show Time:</strong>
+                <span th:text="${#temporals.format(booking.show.showTime, 'dd MMM yyyy, hh:mm a')}"></span></p>
+            <p><strong>💺 Seats:</strong> <span th:text="${booking.seatCodes}"></span></p>
+            <p><strong>💰 Total Amount:</strong> ₹<span th:text="${totalAmount}"></span></p>
+        </div>
+
+        <form th:action="@{/bookings/confirm}" method="post">
+            <input type="hidden" name="showId" th:value="${booking.show.id}">
+            <input type="hidden" name="selectedSeats" th:value="${booking.seatCodes}">
+            <input type="hidden" name="amount" th:value="${totalAmount}">
+
+            <div class="text-center">
+                <button type="submit" class="confirm-btn">💳 Proceed to Payment </button>
+            </div>
+
+
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

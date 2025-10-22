@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Movie Form</title>
+    <img href="src/main/resources/static/posters/">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<!-- Use layout with content -->
+<div th:replace="~{fragments/sidebar :: layout(~{::content})}">
+    <div th:fragment="content">
+        <div class="container mt-4">
+
+            <h2 th:text="${movie.id == null ? 'Add Movie' : 'Edit Movie'}"></h2>
+
+            <form th:action="${movie.id == null} ? @{/admin/movies/new} : @{/admin/movies/edit/{id}(id=${movie.id})}"
+                  th:object="${movie}" method="post">
+
+                <div class="mb-3">
+                    <label>Title</label>
+                    <input class="form-control" type="text" th:field="*{title}" required>
+                    <span th:if="${#fields.hasErrors('title')}"
+                          th:errors="*{title}"></span>
+                </div>
+
+
+                <div class="mb-3">
+                    <label>Genre</label>
+                    <input class="form-control" type="text" th:field="*{genre}" required>
+                    <span th:if="${#fields.hasErrors('genre')}"
+                          th:errors="*{genre}"></span>
+                </div>
+
+
+                <div class="mb-3">
+                    <label>Duration (minutes)</label>
+                    <input class="form-control" type="number" th:field="*{duration}" required>
+                    <span th:if="${#fields.hasErrors('duration')}"
+                          th:errors="*{duration}"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label>Poster URL</label>
+                    <input class="form-control" type="text" th:field="*{posterUrl}" required>
+                    <span th:if="${#fields.hasErrors('posterUrl')}" th:errors="*{posterUrl}"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label>Rating</label>
+                    <input class="form-control" type="number" step="0.1" th:field="*{rating}">
+                    <span th:if="${#fields.hasErrors('rating')}"
+                          th:errors="*{rating}"></span>
+                </div>
+
+                <button type="submit" class="btn btn-success">
+                    <span th:text="${movie.id == null} ? 'Add Movie' : 'Update Movie'"></span>
+                </button>
+
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

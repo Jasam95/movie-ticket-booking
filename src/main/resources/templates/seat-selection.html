@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Seat Selection</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+
+</head>
+
+<body class="bg-light">
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+<div class="container mt-5">
+    <div class="card shadow-lg">
+        <div class="card-body">
+
+
+            <div class="container mb-4">
+                <div class="border border-primary rounded-4 shadow-sm p-3 bg-white text-center">
+                    <h4 class="fw-bold text-primary mb-2">
+                         <span th:text="'🎬 ' + ${show.movie.title} + ' | ' + ${show.screen.theater.name}"> Movie and Theater Name</span>
+                    </h4>
+                    <p class="mb-0 text-secondary">
+                        📍 <span th:text="${show.screen.theater.location}">Location</span> &nbsp; |
+                        🕒 <span th:text="${#temporals.format(show.showTime, 'dd MMM yyyy, hh:mm a')}">Show Date, Show Time</span> &nbsp; |
+                        💰 ₹<span th:text="${show.ticketPrice}">Price</span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="text-center mb-3">SCREEN</div>
+
+            <form th:action="@{/shows/{id}/seats/select(id=${show.id})}" method="post">
+                <input type="hidden" name="selectedSeats" id="selectedSeats"/>
+
+                <div class="seat-container mt-4">
+                    <div th:each="rowIndex : ${#numbers.sequence(0, rows - 1)}" class="seat-row">
+                        <button type="button"
+                                th:each="col : ${#numbers.sequence(1, 10)}"
+                                th:with="seat=${seatLabels[rowIndex * 10 + col - 1]}"
+                                th:if="${seatLabels.size() >= rowIndex * 10 + col}"
+                                th:text="${seat}"
+                                th:id="${seat}"
+                                th:class="'seat-btn ' + (${bookedSeats.contains(seat)} ? 'booked' : 'available')"
+                                th:disabled="${bookedSeats.contains(seat)}"
+                                th:onclick="|toggleSeat(this.id)|">
+                        </button>
+                    </div>
+                </div>
+
+                <div class="legend mt-4 text-center">
+                    <span class="available"></span> Available &nbsp;&nbsp;
+                    <span class="selected"></span> Selected &nbsp;&nbsp;
+                    <span class="booked"></span> Booked
+                </div>
+
+                <div class="text-center mt-4">
+                    <button type="submit" class="btn btn-primary btn-lg">Confirm Seats</button>
+                </div>
+            </form>
+
+            <div th:if="${errorMessage}" class="alert alert-danger text-center fw-bold">
+                <span th:text="${errorMessage}"></span>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+
+<script>
+    function toggleSeat(seatId) {
+        const seat = document.getElementById(seatId);
+        if (seat.classList.contains("booked")) return; // can't click booked
+
+        seat.classList.toggle("selected");
+
+        const input = document.getElementById("selectedSeats");
+        let selected = input.value ? input.value.split(",") : [];
+
+        if (seat.classList.contains("selected")) {
+            selected.push(seatId);
+        } else {
+            selected = selected.filter(s => s !== seatId);
+        }
+        input.value = selected.join(",");
+    }
+</script>
+</body>
+</html>

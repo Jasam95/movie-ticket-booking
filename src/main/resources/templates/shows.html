@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Show List</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+<h2>Shows</h2>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div th:replace="~{fragments/sidebar :: layout(~{::content})}">
+    <div th:fragment="content">
+
+        <a href="/admin/shows/new" class="btn btn-primary mb-3">Add Shows</a>
+
+        <div th:if="${#lists.isEmpty(shows)}">
+            <p>No Shows available.</p>
+        </div>
+
+            <table class="table table-bordered" th:if="${!#lists.isEmpty(shows)}">
+                <thead>
+                <tr>
+                    <th style="resize: horizontal; overflow: auto;">ID</th>
+                    <th style="resize: horizontal; overflow: auto;">Movie</th>
+                    <th style="resize: horizontal; overflow: auto;">Theater</th>
+                    <th style="resize: horizontal; overflow: auto;">Screen</th>
+                    <th style="resize: horizontal; overflow: auto;">Time</th>
+                    <th style="resize: horizontal; overflow: auto;">Price</th>
+                    <th style="width: 120px; min-width: 120px; max-width: 120px; text-align: center;">Action</th>
+                </tr>
+                </thead>
+                <tr th:each="show : ${shows}">
+                    <td th:text="${show.id}"></td>
+                    <td th:text="${show.movie.title}"></td>
+                    <td th:text="${show.screen.theater.name}"></td>
+                    <td th:text="${show.screen.name}"></td>
+                    <td th:text="${#temporals.format(show.showTime, 'yyyy-MM-dd HH:mm')}"></td>
+                    <td th:text="${show.ticketPrice}"></td>
+                    <td>
+                        <a th:href="@{/admin/shows/edit/{id}(id=${show.id})}" class="btn btn-sm btn-warning">Edit</a>
+                        <a th:href="@{/admin/shows/delete/{id}(id=${show.id})}" class="btn btn-danger btn-sm"
+                           onclick="return confirm('Delete this show?');">Delete</a>
+                    </td>
+                </tr>
+            </table>
+    </div>
+</div>
+
+
+</body>
+</html>

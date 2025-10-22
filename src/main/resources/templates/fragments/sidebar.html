@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<body>
+<!-- admin sidebar fragment -->
+<div th:fragment="sidebar" class="bg-dark text-white p-3 vh-100" style="width: 220px;"
+     sec:authorize="hasRole('ADMIN')">
+    <h4 class="text-center">Admin Panel</h4>
+    <hr class="bg-light">
+    <ul class="nav flex-column">
+
+      <li class="nav-item mb-2">
+        <a class="nav-link text-white" th:href="@{/profile}">👤 Profile</a>
+      </li>
+      <li class="nav-item mb-2">
+        <a class="nav-link text-white" th:href="@{/admin/movies}">🎬 Movies</a>
+      </li>
+      <li class="nav-item mb-2">
+        <a class="nav-link text-white" th:href="@{/admin/theaters}">🏛 Theaters</a>
+      </li>
+      <li class="nav-item mb-2">
+        <a class="nav-link text-white" th:href="@{/admin/screens}">🖥 Screens</a>
+      </li>
+      <li class="nav-item mb-2">
+        <a class="nav-link text-white" th:href="@{/admin/shows}">🎟 Shows</a>
+      </li>
+
+      <li class="nav-item mb-2" sec:authorize="hasRole('ADMIN')">
+        <a class="nav-link text-white" th:href="@{/bookings}">✅ All Bookings</a>
+      </li>
+
+      <li class="nav-item mb-2">
+        <a class="nav-link text-white" th:href="@{/logout}">🚪 Logout</a>
+      </li>
+    </ul>
+</div>
+
+<!-- User Sidebar fragment -->
+<div th:fragment="sidebar" class="bg-dark text-white p-3 vh-100" style="width: 220px;"
+     sec:authorize="hasRole('USER')">
+  <h4 class="text-center">My Account</h4>
+  <hr class="bg-light">
+  <ul class="nav flex-column">
+
+    <li class="nav-item mb-2">
+      <a class="nav-link text-white" th:href="@{/profile}">👤 Profile</a>
+    </li>
+
+    <li class="nav-item mb-2">
+      <a class="nav-link text-white" th:href="@{/movies}">🎬 Movies</a>
+    </li>
+
+    <li class="nav-item mb-2" sec:authorize="hasRole('USER')">
+      <a class="nav-link text-white" th:href="@{/bookings}">🎟 My Bookings</a>
+    </li>
+
+    <li class="nav-item mb-2">
+      <a class="nav-link text-white" th:href="@{/logout}">🚪 Logout</a>
+    </li>
+  </ul>
+</div>
+
+<!-- Layout fragment with sidebar + dynamic content -->
+<div th:fragment="layout(content)">
+  <div class="row">
+    <!-- Sidebar -->
+    <div class="col-2">
+      <div th:replace="~{fragments/sidebar :: sidebar}"></div>
+    </div>
+
+    <!-- Page-specific content -->
+    <div class="col-10 p-4">
+      <div th:insert="${content}"></div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
+

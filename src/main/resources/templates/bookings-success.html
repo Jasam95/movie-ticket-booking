@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Booking Successful</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+</head>
+<body>
+<div class="container text-center mt-5">
+    <h2 class="text-success fw-bold">✅ Payment Successful!</h2>
+    <p>Your booking has been confirmed.</p>
+    <a href="/bookings" class="btn btn-primary">View My Bookings</a>
+    <a class="btn btn-primary mt-3" th:href="@{/user}">Back to Home</a>
+</div>
+</body>
+</html>
