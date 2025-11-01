@@ -22,7 +22,13 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
 
                         // Public pages
-                        .requestMatchers("/", "/index","/register/**","/static/**", "/movies/**", "/css/**", "/js/**", "/images/**","/posters/**").permitAll()
+                        .requestMatchers("/", "/index","/register/**","/static/**",
+                                "/movies/**", "/css/**", "/js/**", "/images/**","/posters/**",
+                                "/swagger-ui/**",
+                                "/v3/api-docs/**",
+                                "/docs/**",
+                                "/api/**",
+                                "/swagger-ui.html").permitAll()
 
                         // Only USER can book tickets
                         .requestMatchers("/user/**").hasRole("USER")
