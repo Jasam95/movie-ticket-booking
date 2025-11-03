@@ -46,7 +46,7 @@ public class AuthController {
             return "register";
         }
         try {
-            String roles = "ROLE_ADMIN";
+            String roles = "ROLE_USER";
             userLogInService.createUser(userDto ,roles);
             redirectAttrs.addFlashAttribute("registered", true);
         } catch (IllegalArgumentException ex) {
