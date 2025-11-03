@@ -56,9 +56,9 @@ Screen belongs to a Theater
 
 **Railway Deployment Notes**
 Push latest code to GitHub
-In Railway → “New Project” → “Deploy from GitHub”
+In Railway → “New Project” → “Deploy from GitHub” 
 
-Add Environment Variables:
+Add Environment Variables: 
 
 spring.datasource.url=jdbc:mysql://root:WcGpxsyIWEkcIbgcojRORdAJqVuyiYYD@shortline.proxy.rlwy.net:39015/railway
 
@@ -66,7 +66,9 @@ spring.datasource.username=root
 
 spring.datasource.password=WcGpxsyIWEkcIbgcojRORdAJqVuyiYYD
 
+**Deployed URL :**  
 
+movieticketbooking-production-c7e0.up.railway.app
 
 **Swagger API**
 Main Endpoints
