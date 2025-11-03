@@ -29,8 +29,8 @@ Tests	JUnit 5, Mockito
 **Users:**
 | Role  | Username (email)    | Password   |
 | ----- | ------------------- | ---------- |
-| Admin | `admin@123.com`     | `123456`   |
-| User  | `user1@123.com`     | `123456`   |
+| Admin | `admin@123.com`     | `admin@123`   |
+| User  | `user1@123.com`     | `user1@123`   |
 
 
 **Entity flow diagram:**
